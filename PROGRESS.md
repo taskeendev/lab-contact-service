@@ -12,10 +12,16 @@
 - [x] 1. โครง service + schema (messages) + security (POST public / อ่าน ADMIN) + CI — 2026-06-12
 - [x] 2. Contact API: POST validate + แอดมิน list (แบ่งหน้า + นับยังไม่อ่าน)/mark-read/ลบ — 2026-06-12
 - [x] 3. อีเมลแจ้งเตือน: Spring Mail + @Async — SMTP config จาก env, เมลพังฟอร์มไม่พัง — 2026-06-12
-- [ ] 4. Integration tests (Testcontainers + GreenMail จับอีเมลจริง) + CI เขียว
+- [x] 4. Integration tests (Testcontainers + GreenMail จับอีเมลจริง) + CI เขียว — 2026-06-12
 - [ ] 5. lab-web: หน้า Contact + กล่องขาเข้าใน Admin + ติดป้าย live + redeploy (เกณฑ์เฟส)
 
 ## Log การทำงาน
+
+- 2026-06-12 — ขั้น 4 เสร็จ: ContactFlowIntegrationTest — Testcontainers Postgres + GreenMail SMTP
+  ในเทสต์เดียว: ส่งฟอร์มแล้ว "แกะเมลจริง" ดู to/subject/เนื้อ (waitForIncomingEmail รอ async),
+  validate 3 field, สิทธิ์ 401/403/200, mark-read idempotent + unread นับถูก, ลบ/404;
+  ติดกับดัก 2 จุด: TestRestTemplate ค่า default ยิง PATCH ไม่ได้ (เสียบ httpclient5) /
+  @DynamicPropertySource ถาม port จาก GreenMail ก่อน start → NPE (ใช้ ServerSetupTest.SMTP::getPort)
 
 - 2026-06-12 — ขั้น 3 เสร็จ: MailNotifier (@Async + @EnableAsync) — submit ตอบ 201 ใน 45ms ไม่รอ SMTP;
   ทดสอบกับ MailHog: เมลเด้งจริง (to/subject/เนื้อครบ); เคส SMTP ล่ม: ฟอร์มยัง 201 + log error +

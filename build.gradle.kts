@@ -34,6 +34,8 @@ dependencies {
     testImplementation("org.testcontainers:postgresql")
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("com.icegreen:greenmail-junit5:2.1.3")
+    // client เริ่มต้นของ TestRestTemplate ยิง PATCH ไม่ได้ — เสียบ httpclient5 ให้มัน auto-detect
+    testImplementation("org.apache.httpcomponents.client5:httpclient5")
 }
 
 tasks.withType<Test> {
