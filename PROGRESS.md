@@ -10,12 +10,16 @@
 ## บันได 5 ขั้น
 
 - [x] 1. โครง service + schema (messages) + security (POST public / อ่าน ADMIN) + CI — 2026-06-12
-- [ ] 2. Contact API: POST validate + แอดมิน list (แบ่งหน้า + นับยังไม่อ่าน)/mark-read/ลบ
+- [x] 2. Contact API: POST validate + แอดมิน list (แบ่งหน้า + นับยังไม่อ่าน)/mark-read/ลบ — 2026-06-12
 - [ ] 3. อีเมลแจ้งเตือน: Spring Mail + @Async — SMTP config จาก env, เมลพังฟอร์มไม่พัง
 - [ ] 4. Integration tests (Testcontainers + GreenMail จับอีเมลจริง) + CI เขียว
 - [ ] 5. lab-web: หน้า Contact + กล่องขาเข้าใน Admin + ติดป้าย live + redeploy (เกณฑ์เฟส)
 
 ## Log การทำงาน
+
+- 2026-06-12 — ขั้น 2 เสร็จ: POST /api/contact (นิรนาม, validate name/email/message ราย field,
+  ผู้ส่งได้แค่ 201 — เนื้อกล่องเป็นของแอดมิน); GET กล่องขาเข้า ADMIN (แบ่งหน้า + total + unread),
+  PATCH /{id}/read (ยิงซ้ำ readAt ไม่ขยับ), DELETE; เทสต์ 11 เคสผ่าน: 401/403/200 ตามสิทธิ์ครบ
 
 - 2026-06-12 — ขั้น 1 เสร็จ: โครงสูตรมาตรฐาน (env/health/request-id/graceful/CI) + Postgres ที่ :5435;
   V1: messages (name/email/message/read_at, index created_at DESC); security: POST /api/contact
