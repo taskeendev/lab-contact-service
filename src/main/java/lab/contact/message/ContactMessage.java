@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import org.hibernate.annotations.Generated;
 
 @Entity
@@ -45,7 +46,9 @@ public class ContactMessage {
 
     public void markRead() {
         if (readAt == null) {
-            readAt = Instant.now();
+            // ตัดเหลือไมโครวินาทีเท่าที่ Postgres เก็บได้ — ค่าใน response แรก
+            // จะตรงกับที่อ่านกลับจาก DB ทุกครั้ง (บน Linux นาฬิกาให้ระดับนาโน)
+            readAt = Instant.now().truncatedTo(ChronoUnit.MICROS);
         }
     }
 
