@@ -13,9 +13,14 @@
 - [x] 2. Contact API: POST validate + แอดมิน list (แบ่งหน้า + นับยังไม่อ่าน)/mark-read/ลบ — 2026-06-12
 - [x] 3. อีเมลแจ้งเตือน: Spring Mail + @Async — SMTP config จาก env, เมลพังฟอร์มไม่พัง — 2026-06-12
 - [x] 4. Integration tests (Testcontainers + GreenMail จับอีเมลจริง) + CI เขียว — 2026-06-12
-- [ ] 5. lab-web: หน้า Contact + กล่องขาเข้าใน Admin + ติดป้าย live + redeploy (เกณฑ์เฟส)
+- [x] 5. lab-web: หน้า Contact + กล่องขาเข้าใน Admin + ติดป้าย live + redeploy (เกณฑ์เฟส) — 2026-06-12
 
 ## Log การทำงาน
+
+- 2026-06-12 — ขั้น 5 เสร็จ (จบเฟส): lab-web ได้หน้า /contact (ฟอร์ม + error ราย field จาก server +
+  สถานะส่งแล้ว) และหน้า Admin ได้กล่องขาเข้า (ป้ายนับยังไม่อ่าน, จุดแดงรายฉบับ, mark read, ลบ,
+  mailto ตอบกลับ); proxy /api/contact → 8084; เทสต์ e2e ผ่าน proxy: ฟอร์ม → เมลเด้ง MailHog →
+  แอดมินเปิดกล่อง/อ่าน/ลบ ครบ; ติดป้าย contact=live แล้ว deploy Vercel
 
 - 2026-06-12 — ขั้น 4 เสร็จ: ContactFlowIntegrationTest — Testcontainers Postgres + GreenMail SMTP
   ในเทสต์เดียว: ส่งฟอร์มแล้ว "แกะเมลจริง" ดู to/subject/เนื้อ (waitForIncomingEmail รอ async),
