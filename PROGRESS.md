@@ -11,11 +11,16 @@
 
 - [x] 1. โครง service + schema (messages) + security (POST public / อ่าน ADMIN) + CI — 2026-06-12
 - [x] 2. Contact API: POST validate + แอดมิน list (แบ่งหน้า + นับยังไม่อ่าน)/mark-read/ลบ — 2026-06-12
-- [ ] 3. อีเมลแจ้งเตือน: Spring Mail + @Async — SMTP config จาก env, เมลพังฟอร์มไม่พัง
+- [x] 3. อีเมลแจ้งเตือน: Spring Mail + @Async — SMTP config จาก env, เมลพังฟอร์มไม่พัง — 2026-06-12
 - [ ] 4. Integration tests (Testcontainers + GreenMail จับอีเมลจริง) + CI เขียว
 - [ ] 5. lab-web: หน้า Contact + กล่องขาเข้าใน Admin + ติดป้าย live + redeploy (เกณฑ์เฟส)
 
 ## Log การทำงาน
+
+- 2026-06-12 — ขั้น 3 เสร็จ: MailNotifier (@Async + @EnableAsync) — submit ตอบ 201 ใน 45ms ไม่รอ SMTP;
+  ทดสอบกับ MailHog: เมลเด้งจริง (to/subject/เนื้อครบ); เคส SMTP ล่ม: ฟอร์มยัง 201 + log error +
+  ข้อความอยู่ใน DB ครบ; บั๊กที่เจอ: append บล็อก mail ลง yml แล้วไปซ้อนใต้ jwt: แทน spring: →
+  spring.mail.host ไม่ถูกตั้ง → ไม่มี bean JavaMailSender → boot พัง — จัด indent ใหม่ให้อยู่ใต้ spring:
 
 - 2026-06-12 — ขั้น 2 เสร็จ: POST /api/contact (นิรนาม, validate name/email/message ราย field,
   ผู้ส่งได้แค่ 201 — เนื้อกล่องเป็นของแอดมิน); GET กล่องขาเข้า ADMIN (แบ่งหน้า + total + unread),
