@@ -20,8 +20,9 @@
 - 2026-06-12 — ขั้น 4 เสร็จ: ContactFlowIntegrationTest — Testcontainers Postgres + GreenMail SMTP
   ในเทสต์เดียว: ส่งฟอร์มแล้ว "แกะเมลจริง" ดู to/subject/เนื้อ (waitForIncomingEmail รอ async),
   validate 3 field, สิทธิ์ 401/403/200, mark-read idempotent + unread นับถูก, ลบ/404;
-  ติดกับดัก 2 จุด: TestRestTemplate ค่า default ยิง PATCH ไม่ได้ (เสียบ httpclient5) /
-  @DynamicPropertySource ถาม port จาก GreenMail ก่อน start → NPE (ใช้ ServerSetupTest.SMTP::getPort)
+  ติดกับดัก 3 จุด: TestRestTemplate ค่า default ยิง PATCH ไม่ได้ (เสียบ httpclient5) /
+  @DynamicPropertySource ถาม port จาก GreenMail ก่อน start → NPE (ใช้ ServerSetupTest.SMTP::getPort) /
+  ผ่านบนเครื่องแต่พังบน CI: readAt นาโนวิจากหน่วยความจำ vs ไมโครวิจาก Postgres — truncate ตอนเขียน
 
 - 2026-06-12 — ขั้น 3 เสร็จ: MailNotifier (@Async + @EnableAsync) — submit ตอบ 201 ใน 45ms ไม่รอ SMTP;
   ทดสอบกับ MailHog: เมลเด้งจริง (to/subject/เนื้อครบ); เคส SMTP ล่ม: ฟอร์มยัง 201 + log error +
